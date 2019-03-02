@@ -55,17 +55,11 @@ public class ServerSocket01 {
         ServerSocket serverSocket = new ServerSocket(port);
         printLocalIp(serverSocket);
         while (true) {// 无限循环，使之能结束当前socket服务后，准备下一次socket服务
-
+        	
             System.out.println("Waiting client to connect.....");
             Socket socket = serverSocket.accept();// 阻塞式，直到有客户端连接进来，才会继续往下执行，否则一直停留在此代码
             System.out.println("Client connected from: "
                     + socket.getRemoteSocketAddress().toString());
-
-            // eclipse 快捷键
-            // alt+/ 代码补全
-            // ctr+1 代码修正
-            // ctr+2，L 命名给局部变量
-
             // TODO: As follows:
             
             ArrayList<String> cmdlist=readSocketMsg(socket);
@@ -80,17 +74,16 @@ public class ServerSocket01 {
             // 将msgBackList按规定的格式写回给客户端
             // 实现 private void close(Socket socket) throws IOException，关闭socket
             // 调用 close(socket);
-
             System.out.println("当前Socket服务结束");
         }
     }
     private void close(Socket socket) throws IOException{
     	socket.close();
     }
-    private ArrayList<String> dealCmd(ArrayList<String> cmdlist) {
+    private ArrayList<String> dealCmd(ArrayList<String> cmdlist) throws IOException {
 		// TODO Auto-generated method stub
     	//ArrayList<String> backlist=new ArrayList<String>();
-    	String cmd=cmdlist.get(0);
+    	String cmd=cmdlist.get(0);//这里暂时只获取第一个命令测试
     	String cmdtype=cmd.substring(0,cmd.indexOf(":") );//命令类型
    	 	String cmdbody=cmd.substring(cmdtype.length()+1);//文件地址
    	 	exeDir(cmdbody);
@@ -120,20 +113,15 @@ public class ServerSocket01 {
 		return cmdlist;
     	
     }
-	private void exeDir(String cmdBody) {
+	private void exeDir(String cmdBody) throws IOException {
         // TODO Auto-generated method stub
         File file = new File(cmdBody);
         File[] listFiles = file.listFiles();
         
         msgBackList.clear();
-        
-        try {
-			msgBackList.add(file.getCanonicalPath());
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        msgBackList.add("OK");
+        msgBackList.add(file.getCanonicalPath());
+
         for(File mfile:listFiles){
             String fileName = mfile.getName();
             long lastModified = mfile.lastModified();//获取文件修改时间
