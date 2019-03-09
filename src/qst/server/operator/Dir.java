@@ -6,17 +6,17 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class Dir {
+public class Dir extends BaseOperator{
 
 	public Dir() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static ArrayList<String> exeDir(String cmdBody, ArrayList<String> msgBackList,String lastpath) throws IOException {
+	public static ArrayList<String> exeDir(String cmdBody,String lastpath) throws IOException {
 		// TODO Auto-generated method stub
 		File[] listFiles=null;
 		File file=null;
-		msgBackList.clear();
+		 ArrayList<String> msgBackList=new ArrayList<String>();
 		//如果第一次发送的命令就是..默认返回盘符,否则上一级（上一次的路径+..），注意if顺序
 		if (cmdBody.equals(".."))
 		{
@@ -63,5 +63,12 @@ public class Dir {
 			
 		}
 		return msgBackList;
+	}
+
+	@Override
+	public ArrayList<String> exe(String cmdBody) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 }

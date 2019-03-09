@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 import qst.server.operator.Dir;
+import qst.server.operator.Operator;
 import qst.server.operator.Opn;
 
 public class CmdServerSocket {
@@ -80,7 +81,7 @@ public class CmdServerSocket {
 	    private void close(Socket socket) throws IOException{
 	    	socket.close();
 	    }
-	    private ArrayList<String> dealCmd(ArrayList<String> cmdlist) throws IOException {
+	    private ArrayList<String> dealCmd(ArrayList<String> cmdlist) throws Exception {
 			// TODO Auto-generated method stub
 	    	//ArrayList<String> backlist=new ArrayList<String>();
 	    	String cmd=cmdlist.get(0);//这里暂时只获取第一个命令测试
@@ -99,11 +100,14 @@ public class CmdServerSocket {
 	    		else {
 					lastpath="";
 				}
-		   	 	msgBackList=Dir.exeDir(cmdbody, msgBackList,lastpath);
+	    		//msgBackList=null;//原来的list释放
+		   	 	msgBackList=Dir.exeDir(cmdbody,lastpath);
 		   	 	
 	    	}
-	   	 	else if (cmdtype.equalsIgnoreCase("opn")) {
-				msgBackList=Opn.exeOpn(cmdbody,msgBackList);
+	   	 	else {
+	   	 		//msgBackList=null;
+	   	 		msgBackList=Operator.execmd(cmdtype, cmdbody);
+				//msgBackList=Opn.exeOpn(cmdbody);
 			}
 			return null;
 		}
