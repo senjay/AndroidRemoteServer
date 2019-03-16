@@ -89,23 +89,20 @@ public class CmdServerSocket {
 	    	String cmdbody=cmd.substring(cmdtype.length()+1);//文件地址
 	    	if(cmdtype.equalsIgnoreCase("dir"))
 	    	{
-	    		//如果不为空，即有上次路径且为文件路径就赋值
-	    		
+	    		//如果不为空，即有上次路径且为文件路径就赋值	    		
 	    		if(msgBackList.size()>1)
 	    		{
-	    			
-	    			System.out.println("msgggg"+msgBackList.get(1));
+	    		
 	    			lastpath=msgBackList.get(1);
 	    		}
 	    		else {
 					lastpath="";
 				}
-	    		//msgBackList=null;//原来的list释放
-		   	 	msgBackList=Dir.exeDir(cmdbody,lastpath);
-		   	 	
+	    		
+		   	 	msgBackList=Dir.exeDir(cmdbody,lastpath);  	 	
 	    	}
 	   	 	else {
-	   	 		//msgBackList=null;
+	   	 		
 	   	 		msgBackList=Operator.execmd(cmdtype, cmdbody);
 				//msgBackList=Opn.exeOpn(cmdbody);
 			}
