@@ -40,7 +40,7 @@ public class VisualKeyMap {
 	        
 	        hashMap.put("VK_B", KeyEvent.VK_B);
 	        hashMap.put("VK_M", KeyEvent.VK_M);
-	        
+	        hashMap.put("VK_V", KeyEvent.VK_V);
 
 	    }
 

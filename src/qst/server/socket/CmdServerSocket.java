@@ -84,28 +84,62 @@ public class CmdServerSocket {
 	    private ArrayList<String> dealCmd(ArrayList<String> cmdlist) throws Exception {
 			// TODO Auto-generated method stub
 	    	//ArrayList<String> backlist=new ArrayList<String>();
-	    	String cmd=cmdlist.get(0);//这里暂时只获取第一个命令测试
-	    	String cmdtype=cmd.substring(0,cmd.indexOf(":") );//命令类型
-	    	String cmdbody=cmd.substring(cmdtype.length()+1);//文件地址
-	    	if(cmdtype.equalsIgnoreCase("dir"))
+	    	for(int i=0;i<cmdlist.size();i++)
 	    	{
-	    		//如果不为空，即有上次路径且为文件路径就赋值	    		
-	    		if(msgBackList.size()>1)
-	    		{
-	    		
-	    			lastpath=msgBackList.get(1);
-	    		}
-	    		else {
-					lastpath="";
+		    	String cmd=cmdlist.get(i);//这里暂时只获取第一个命令测试
+		    	String cmdtype=cmd.substring(0,cmd.indexOf(":") );//命令类型
+		    	String cmdbody=cmd.substring(cmdtype.length()+1);//文件地址
+		    	
+		    	if(cmdtype.equalsIgnoreCase("dir"))
+		    	{
+		    		//如果不为空，即有上次路径且为文件路径就赋值	    		
+		    		if(msgBackList.size()>1)
+		    		{
+		    		
+		    			lastpath=msgBackList.get(1);
+		    		}
+		    		else {
+						lastpath="";
+					}
+		    		
+			   	 	msgBackList=Dir.exeDir(cmdbody,lastpath);  	 	
+		    	}
+		    	else if (cmdtype.equalsIgnoreCase("for"))
+		    	{
+		    		int loop=Integer.parseInt(cmdbody);
+		    	
+		    		new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							for(int j=0;j<loop;j++)
+							{
+								for (int k=1;k<cmdlist.size();k++)
+								{	
+									String cmdtemp=cmdlist.get(k);
+						    		String cmdtypetemp=cmdtemp.substring(0,cmd.indexOf(":") );
+						    		String cmdbodytemp=cmdtemp.substring(cmdtype.length()+1);
+									try {
+										Operator.execmd(cmdtypetemp, cmdbodytemp);
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+							}
+						}
+					}).start();
+		    		msgBackList.add("ok");
+		    		break;
+		    	}
+		   	 	else {
+		   	 		
+		   	 		msgBackList=Operator.execmd(cmdtype, cmdbody);
+					//msgBackList=Opn.exeOpn(cmdbody);
 				}
-	    		
-		   	 	msgBackList=Dir.exeDir(cmdbody,lastpath);  	 	
 	    	}
-	   	 	else {
-	   	 		
-	   	 		msgBackList=Operator.execmd(cmdtype, cmdbody);
-				//msgBackList=Opn.exeOpn(cmdbody);
-			}
+
 			return null;
 		}
 	    private void writebackMsg(Socket socket) throws IOException

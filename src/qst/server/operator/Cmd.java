@@ -1,20 +1,17 @@
 package qst.server.operator;
 
-import java.awt.Robot;
 import java.util.ArrayList;
 
-public class Rol extends BaseOperator{
-	private Robot robot;
-	public Rol() {
+public class Cmd extends BaseOperator{
+
+	public Cmd() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public ArrayList<String> exe(String cmdBody) throws Exception {
 		ArrayList<String> ackMsg = new ArrayList<String>();
-		robot=new Robot();
-		int cnt=Integer.parseInt(cmdBody);
-		robot.mouseWheel(cnt);
+		Runtime.getRuntime().exec("cmd /c "+cmdBody);
 		ackMsg.add("ok");
 		return ackMsg;
 	}

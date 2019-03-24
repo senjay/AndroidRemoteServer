@@ -19,6 +19,14 @@ public class Operator {
 			return new Clk().exe(cmdbody);
 		case "rol":
 			return new Rol().exe(cmdbody);
+		case "cmd":
+			return new Cmd().exe(cmdbody);
+		case "slp":
+			return new Slp().exe(cmdbody);
+		case "cps":
+			return new Cps().exe(cmdbody);
+		case "dlf":
+			return new Dlf().exe(cmdbody);
 		default:
 			break;
 		}
