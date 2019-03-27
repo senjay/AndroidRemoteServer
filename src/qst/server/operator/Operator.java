@@ -27,6 +27,8 @@ public class Operator {
 			return new Cps().exe(cmdbody);
 		case "dlf":
 			return new Dlf().exe(cmdbody);
+		case "ulf":
+			return new Ulf().exe(cmdbody);
 		default:
 			break;
 		}

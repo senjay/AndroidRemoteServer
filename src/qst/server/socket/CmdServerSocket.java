@@ -87,6 +87,7 @@ public class CmdServerSocket {
 	    	for(int i=0;i<cmdlist.size();i++)
 	    	{
 		    	String cmd=cmdlist.get(i);//这里暂时只获取第一个命令测试
+		    	System.out.println("接收到命令："+cmd);
 		    	String cmdtype=cmd.substring(0,cmd.indexOf(":") );//命令类型
 		    	String cmdbody=cmd.substring(cmdtype.length()+1);//文件地址
 		    	
