@@ -29,6 +29,7 @@ public class VisualKeyMap {
 	        hashMap.put("VK_WINDOWS", KeyEvent.VK_WINDOWS);
 	        hashMap.put("VK_SPACE", KeyEvent.VK_SPACE);
 	        hashMap.put("VK_ENTER", KeyEvent.VK_ENTER);
+	        hashMap.put("VK_BACK_SPACE", KeyEvent.VK_BACK_SPACE);
 	        
 	        hashMap.put("VK_DOWN", KeyEvent.VK_DOWN);
 	        hashMap.put("VK_LEFT", KeyEvent.VK_LEFT);

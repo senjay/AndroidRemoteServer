@@ -34,14 +34,20 @@ public class Ulf extends BaseOperator{
 		file=new File(filename);
 		if(filemode==-1)
 		{
-			
+			if(file.exists())
+			{
+				
+				String temp=filename;
+				filename=temp.substring(0, temp.indexOf("."))+"(1)."+temp.substring(temp.indexOf(".")+1);
+				file=new File(filename);
+			}
 			int i=1;
 			while(file.exists())
 			{
-				String temp=filename;
-				filename=temp.substring(0, temp.indexOf("."))+"("+i+")."+temp.substring(temp.indexOf(".")+1);
+				
+				filename=filename.replace("("+i+")", "("+(++i)+")");		
+				System.out.println(filename);
 				file=new File(filename);
-				i++;
 			}
 			file.createNewFile();
 			filepos=0;

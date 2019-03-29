@@ -28,7 +28,7 @@ public class Key extends BaseOperator {
             comboKeyPress(keyPressStr,keyReleaseStr);
         }
         ackMsg.add("ok");
-        ackMsg.add("key:"+cmdBody);
+        //ackMsg.add("key:"+cmdBody);
         return ackMsg;
         
     }

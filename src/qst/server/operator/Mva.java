@@ -32,7 +32,12 @@ public class Mva extends BaseOperator{
 			x=(int) ix;
 			y=(int) iy;
 		}
-		robot.mouseMove(x,y);
+		int k=10;//win10bug，导致鼠标绝对移动是一个逼近过程，用一个循环
+		while((--k)>0)
+		{
+			robot.mouseMove(x,y);
+		}
+		
 		ackMsg.add("ok");
 		return ackMsg;
 	}
